@@ -3,7 +3,7 @@
 # Flora Flow is an innovative web application designed to assist plant lovers in caring for their indoor and outdoor plants. By leveraging personalized plant care advice, automated reminders, and a community-driven platform, Flora Flow helps users maintain healthy and thriving plants with ease.
 
 # 1. Installation :
-# Clone the repository : git clone https://github.com/Andrea-200/flora_flow.git
+# Clone the repository : git clone https://github.com/LakshanaV-2518/Flora_Flow.git
 
 # 2. Usage :
 # Register or log in to your account.
