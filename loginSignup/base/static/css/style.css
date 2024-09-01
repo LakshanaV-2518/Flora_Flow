@@ -1,67 +1,114 @@
-*{
- box-sizing: border-box;
+* {
+    box-sizing: border-box;
 }
-body{
- display: flex;
- justify-content: center;
- background-image: url("https://www.10wallpaper.com/wallpaper/2560x1600/1704/Beautiful_garden_jungle-Vintage_Themed_Wallpaper_2560x1600.jpg");
- background-repeat: no-repeat;
- background-size: cover;
- align-items: center;
- height: 100vh;
- background-color: #fff;
-}
-.shadow-wrap{
- border-radius: 5px;
- padding: 25px;
- background-color:#F0F2FB;
-}
-.form-wrap{
- background-color: #fff;
- padding: 70px;
-}
-.form-wrap form *{
- display: block;
- width: 100%;
-}
-.form-wrap from label{
- margin-bottom: 5px;
- font-size: 14px;
- font-weight: 700;
- line-height: 26px;
-}
-.form-wrap form input{
- padding: 12px 20px;
- border-radius: 5px;
- border: 1px solid #DAE1F5;
- background: #FFF;
- color: #545D7A;
-}
-#id_username{
- margin-bottom: 20px;
-}
-.form-wrap button{
- border-radius: 5px;
- background: #10182F;
- color: #FFF;
- text-align: center;
- font-size: 16px;
- padding: 12px 68px;
- font-weight: 700;
- border: none;
- margin-top: 30px;
- line-height: 26px;
-}
-.signup-link{
- color: #10182F;
- font-size: 15px;
- margin-top: 20px;
- text-align: center;
- line-height: 25px;
- display: block;
-text-decoration: none;
 
+body {
+    display: flex;
+    justify-content: center;
+    background-image: url("../blog/login_img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    margin: 0;
 }
-.signup-link:hover{
- text-decoration: underline;  
+
+.shadow-wrap {
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #e7e9f1;
+    max-width: 500px;
+    width: 100%;
+    height: 460px;
+    align-items:center;
+}
+
+.form-wrap {
+
+    background-color: #fff !important;
+    padding: 30px !important;
+    max-height: 500px;
+    height: 430px;
+    align-items:center;
+    align-items:center;
+}
+
+.form-wrap form * {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.form-wrap form label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px; /* Reduced line height */
+}
+
+.form-wrap form input {
+    padding: 10px 15px; /* Reduced padding */
+    border-radius: 5px;
+    border: 1px solid #DAE1F5;
+    background: #FFF;
+    color: #545D7A;
+}
+
+.form-wrap button {
+    border-radius: 5px;
+    background: #10182F;
+    color: #FFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 50px; /* Reduced padding */
+    font-weight: 700;
+    border: none;
+    margin-top: 20px; /* Reduced margin */
+    line-height: 20px; /* Reduced line height */
+}
+
+.signup-link,.login-link {
+    color: #10182F;
+    font-size: 15px;
+    margin-top: 15px; /* Reduced margin */
+    text-align: center;
+    line-height: 20px; /* Reduced line height */
+    display: block;
+    text-decoration: none;
+}
+
+.signup-link:hover,.login-link:hover {
+    text-decoration: underline;
+}
+
+/* New styles for About and Care Tips sections */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+.flower-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.flower-card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 15px; 
+    margin: 10px;
+    width: 250px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flower-card img {
+    max-width: 100%;
+    height: auto;
 }
