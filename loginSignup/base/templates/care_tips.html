@@ -13,6 +13,7 @@
             color: #333;
             margin: 0;
             padding: 0;
+            overflow-x:hidden !important;
         }
 
         /* Header Styles */
@@ -61,15 +62,35 @@
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
-        
     </style>
 </head>
 <body>
     <header>
         <h1>Nurture Strategies</h1>
     </header>
+        <!-- Pagination Block -->
+        {% if posts.has_other_pages %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ posts.previous_page_number }}">previous</a>
+                {% endif %}
+    
+                <span class="current">
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                </span>
+    
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">next</a>
+                    <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
     <div class="flower-container">
         <div class="flower-card">
+        
             <h2>Rose (Rosa spp.)</h2>
             <p><strong>Temprature:</strong>Ideal growing temperatures are between 60°F to 75°F (15°C to 24°C). They can tolerate slightly higher temperatures but may struggle in prolonged extreme heat.</p>
             <p><strong>Fertilization:</strong>Use a balanced fertilizer (10-10-10) every 4-6 weeks during the growing season. You can also use slow-release or organic fertilizers to maintain steady nutrient supply.</p>

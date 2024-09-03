@@ -118,6 +118,7 @@
             height: 450px;
             transform: rotate(45deg);
         }
+        
     </style>
 </head>
 
@@ -130,7 +131,7 @@
 
             <a href="/home/care-tips/">Care-tips</a>
             <a href="/post/">Blog</a>
-            <a href="{% url 'base:logout' %}">Logout</a>
+            <a href="/login/">Logout</a>
         </nav>
     </header>
 
@@ -139,7 +140,7 @@
             <h1>Flora Flow-Making Plant Care Effortless and Joyful :</h1>
             <h3>Where Every Leaf Flourishes—Nurture with Knowledge!</h3>
             <p>Explore expert care tips to ensure your plants get the best care possible, dive into our engaging blogs for inspiration and in-depth knowledge, and set up personalized watering reminders so your green friends never go thirsty. Let us help you cultivate a lush, healthy garden with ease and joy!</p>
-            <a href="#" class="btn">Plan My Plant's Hydration: Sprinkle Some Love To Your Green Buddies</a>
+            <a href="{% url 'set_reminder' %}" class="btn">Plan My Plant's Hydration: Sprinkle Some Love To Your Green Buddies</a>
         </div>
 
         

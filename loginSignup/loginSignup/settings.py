@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "base",
+    "reminders",
 ]
 
 MIDDLEWARE = [
@@ -129,3 +133,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Authentication Redirects
 LOGIN_REDIRECT_URL = "base:home"
 LOGOUT_REDIRECT_URL = "base:login"
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your provider's SMTP server
+EMAIL_PORT = 587  # Commonly used port for SMTP
+EMAIL_USE_TLS = True  # Use TLS
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

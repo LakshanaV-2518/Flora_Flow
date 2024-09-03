@@ -62,38 +62,91 @@
         .btn-danger {
             margin: 0.5rem;
         }
-        
+
         .logout {
             margin-top: 1rem;
             display: block;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a, .pagination span {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .pagination .current {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+            color: #007bff;
+        }
+
+        .pagination .disabled {
+            color: #ddd;
+            pointer-events: none;
         }
     </style>
     <title>Garden Narratives</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Garden Narratives</h1>
-        <a href="{% url 'blog:post_create' %}" class="btn btn-primary">Create New Post</a>
+    <div class="container mt-4"> <!-- Existing container div -->
+        <h2>Garden Narratives</h2>
         
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="logout btn btn-outline-secondary">Logout</a>
-        {% endif %}
-
+        <a href="{% url 'blog:post_create' %}" class="btn btn-primary">Create New Post</a>
+    
+        <!-- List of Topics -->
         <ul class="list-group mt-3">
             {% for post in posts %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="{% url 'blog:post_view' post.id %}">{{ post.title }}</a>
-
-                    {% if user.is_authenticated and (user == post.author or user.is_staff) %}
-                    <div>
-                        <a href="{% url 'blog:post_update' post.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
-                        <a href="{% url 'blog:post_delete' post.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
-                    </div>
+    
+                    {% if user.is_authenticated %}
+                        {% if user == post.author or user.is_staff %}
+                            <div>
+                                <a href="{% url 'blog:post_update' post.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                <a href="{% url 'blog:post_delete' post.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
+
+        <!-- Pagination Block -->
+        {% if posts.has_other_pages %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if posts.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ posts.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                    </span>
+
+                    {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}">next</a>
+                        <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

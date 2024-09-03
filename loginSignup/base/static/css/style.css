@@ -87,6 +87,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f8ff;
     display: flex;
+    overflow-x: hidden !important;
 }
 
 h1 {
@@ -112,3 +113,21 @@ h1 {
     max-width: 100%;
     height: auto;
 }
+/* .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    background-color: #8B0000; /* Dark Red */
+    /* color: white;
+    padding: 8px 16px;
+    margin: 0 5px;
+    text-decoration: none;
+    border-radius: 5px; */
+/* }
+
+.pagination a:hover {
+    background-color: #5A0000; /* Darker Red */
+/* } */
