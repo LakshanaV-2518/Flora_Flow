@@ -11,8 +11,6 @@ logger = logging.getLogger('reminders')
 
 @shared_task
 def send_reminder_email(email, plants):
-    # Your email sending logic here
-    # Example:
     subject = "Plant Watering Reminder"
     message = f"Hi, don't forget to water your plants: {plants}."
     from_email = "noreply@yourdomain.com"

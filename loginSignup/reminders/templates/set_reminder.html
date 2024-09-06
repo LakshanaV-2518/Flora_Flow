@@ -35,8 +35,8 @@
 <body>
     <div class="container">
         <h1 class="mt-5">Set a Reminder</h1>
-        <form action="{% url 'set_reminder' %}" method="post" class="mt-4">
-            {% csrf_token %}
+        <form action="{% url 'set_reminder' %}" method="POST" class="mt-4">
+            <!-- {% csrf_token %} -->
             <div class="form-group">
                 <label for="reminder_time">Select Date and Time:</label>
                 <input type="datetime-local" id="reminder_time" name="reminder_time" class="form-control" required>

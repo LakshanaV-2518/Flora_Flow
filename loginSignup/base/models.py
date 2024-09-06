@@ -20,13 +20,12 @@ class Flower(models.Model):
 
     def __str__(self):
         return self.name
-
+    
 
 class CareTip(models.Model):
-    flower = models.ForeignKey(
-        Flower, related_name="care_tips", on_delete=models.CASCADE
-    )
-    tip = models.TextField()
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Care Tip for {self.flower.name}"
+        return self.title

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.contrib.auth import logout
 from django.urls import reverse
-from .models import Post
+from .models import Post, CareTip
 from .forms import PostForm
 
 
@@ -127,8 +127,6 @@ def care_tips(request):
         posts = paginator.page(paginator.num_pages)
     
     return render(request, "care_tips.html", {"posts": posts, "user": request.user})
-    
-
 
 
 # View to confirm sign out
