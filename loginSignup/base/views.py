@@ -18,7 +18,7 @@ def authView(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")  # Redirect to login after successful signup
+            return redirect("base:login")  # Redirect to login after successful signup
         return render(request, "registration/signup.html", {"form": form})
     return HttpResponse("Invalid request method", status=405)
 
