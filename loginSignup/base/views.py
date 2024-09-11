@@ -6,8 +6,31 @@ from django.contrib import messages
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.contrib.auth import logout
 from django.urls import reverse
-from .models import Post, CareTip
+from .models import Post
 from .forms import PostForm
+
+# View to handle user signup
+def authView(request):
+    if request.method == "GET":
+        form = UserCreationForm()
+        return render(request, "registration/signup.html", {"form": form})
+    elif request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")  # Redirect to login after successful signup
+        return render(request, "registration/signup.html", {"form": form})
+    return HttpResponse("Invalid request method", status=405)
+
+# View to handle the home page, requires login
+@login_required
+def home(request):
+    return render(request, "about.html")
+
+# View to render the "Care Tips" page
+def care_tips(request):
+    posts = Post.objects.all()
+    return render(request, "care_tips.html", {"posts": posts, "user": request.user})
 
 
 # View to list all posts
@@ -45,8 +68,8 @@ def post_create(request):
 
 
 # View to display a single post
-def post_view(request, pk):
-    post = get_object_or_404(Post, id=pk)
+def post_view(request, id):
+    post = get_object_or_404(Post, id=id)
     form = PostForm(instance=post)
     return render(request, "blog/post_view.html", {"form": form, "user": request.user})
 
@@ -84,55 +107,6 @@ def post_delete(request, pk):
             return redirect("blog:post_list")
 
     return render(request, "blog/post_confirm_delete.html", {"post": post})
-
-
-# View to handle the home page, requires login
-@login_required
-def home(request):
-    return render(request, "about.html")
-
-
-# View to handle user signup
-def authView(request):
-    if request.method == "GET":
-        form = UserCreationForm()
-        return render(request, "registration/signup.html", {"form": form})
-    elif request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("login")  # Redirect to login after successful signup
-        return render(request, "registration/signup.html", {"form": form})
-    return HttpResponse("Invalid request method", status=405)
-
-
-# View to render the "About" page
-def about(request):
-    return render(request, "about.html")
-
-
-# View to render the "Care Tips" page
-def care_tips(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts,2)  # Show 5 posts per page
-    page = request.GET.get('page')
-       
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver the first page
-        posts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g., 9999), deliver last page of results
-        posts = paginator.page(paginator.num_pages)
-    
-    return render(request, "care_tips.html", {"posts": posts, "user": request.user})
-
-
-# View to confirm sign out
-@login_required
-def signout_confirm_view(request):
-    return render(request, 'base/signout_confirm.html')
 
 
 # View to handle sign out

@@ -2,29 +2,24 @@ from django.urls import path, include
 from . import views
 from .views import authView
 from .views import post_delete
-from .views import signout_confirm_view
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 
 app_name = "blog"
 
 
-# class LogoutView(LogoutView):
-#     next_page = "login"
-
-
 urlpatterns = [
+    # User-related and other URLs
+    
+    path("", authView, name="authView"),
+    path("", include("django.contrib.auth.urls")),
+    path("home/", views.home, name="home"),
+    path("home/care-tips/", views.care_tips, name="care_tips"),
+    
     # Blog-related URLs
     path("post/", views.post_list, name="post_list"),
     path("post/new/", views.post_create, name="post_create"),
     path("post/<int:id>/update/", views.post_update, name="post_update"),
     path("post/<int:pk>/delete/", views.post_delete, name="post_delete"),
-    path("post/<int:pk>/view", views.post_view, name="post_view"),
-    
-    # User-related and other URLs
-    path("home/", views.home, name="home"),
-    path("signup/", authView, name="authView"),
-    path("", include("django.contrib.auth.urls")),
-    path("logout/", signout_confirm_view, name='logout_confirm'),
-    path("home/care-tips/", views.care_tips, name="care_tips"),
+    path("post/<int:id>/view", views.post_view, name="post_view"),
 ]

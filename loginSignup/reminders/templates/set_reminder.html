@@ -18,13 +18,13 @@
             border-radius: 0.25rem;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+            background: linear-gradient(90deg, #6A9C89 0%, #16423C 100%);
             border: none;
             border-radius: 0.5rem;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .btn-primary:hover {
-            background: linear-gradient(90deg, #0056b3 0%, #003d7a 100%);
+            background: linear-gradient(90deg, #6A9C89 0%, #16423C 100%);
             transform: scale(1.05);
         }
         .text-danger {
@@ -36,7 +36,7 @@
     <div class="container">
         <h1 class="mt-5">Set a Reminder</h1>
         <form action="{% url 'set_reminder' %}" method="POST" class="mt-4">
-            <!-- {% csrf_token %} -->
+            {% csrf_token %}
             <div class="form-group">
                 <label for="reminder_time">Select Date and Time:</label>
                 <input type="datetime-local" id="reminder_time" name="reminder_time" class="form-control" required>

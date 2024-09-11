@@ -6,6 +6,10 @@ import logging
 from celery import shared_task
 from django.core.mail import send_mail 
 import smtplib
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger('reminders')
 
@@ -13,7 +17,7 @@ logger = logging.getLogger('reminders')
 def send_reminder_email(email, plants):
     subject = "Plant Watering Reminder"
     message = f"Hi, don't forget to water your plants: {plants}."
-    from_email = "noreply@yourdomain.com"
+    from_email = os.getenv('DEFAULT_FROM_EMAIL')
     
     send_mail(subject, message, from_email, [email])
 
@@ -42,4 +46,5 @@ def set_reminder(request):
     return render(request, 'set_reminder.html', {'form': form})
 
 def reminder_set(request):
+    send_reminder_email(request.GET.get('email'), request.GET.get('plants'))
     return render(request, 'reminder_set.html')

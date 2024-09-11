@@ -3,10 +3,12 @@ from celery import shared_task
 from django.core.mail import send_mail
 
 @shared_task
-def send_reminder_email(email):
+def send_reminder_email(email,plants):
     logger = logging.getLogger(__name__)
     
-    logger.info(f'Sending reminder email to {email}')
+    logger.info(f'Sending reminder email to {email} for plants:{plants}')
+    plants_list =','.join(plants) if isinstance(plants,list) else plants
+    breakpoint()
     try:
         send_mail(
             'Plant Reminder',
