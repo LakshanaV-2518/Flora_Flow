@@ -7,7 +7,6 @@
     <title>Care Tips</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <style>
-     
         /* Header Styles */
         header {
             background-color: #6A9C89;
@@ -19,6 +18,19 @@
         h1 {
             margin: 0;
             font-family: 'Georgia', serif;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         /* Flower Container Styles */
@@ -60,32 +72,35 @@
     <header>
         <h1>Nurture Strategies</h1>
     </header>
-       
-    <div class="flower-container">
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for a flower..." onkeyup="filterFlowers()">
+    </div>
+
+    <!-- Flower Cards -->
+    <div class="flower-container" id="flowerContainer">
         <div class="flower-card">
-        
             <h2>Rose (Rosa spp.)</h2>
-            <p><strong>Temprature:</strong>Ideal growing temperatures are between 60°F to 75°F (15°C to 24°C). They can tolerate slightly higher temperatures but may struggle in prolonged extreme heat.</p>
+            <p><strong>Temperature:</strong> Ideal growing temperatures are between 60°F to 75°F (15°C to 24°C)...</p>
             <p><strong>Fertilization:</strong>Use a balanced fertilizer (10-10-10) every 4-6 weeks during the growing season. You can also use slow-release or organic fertilizers to maintain steady nutrient supply.</p>
             <p><strong>Pests:</strong>Common pests include aphids, spider mites, and Japanese beetles. Use insecticidal soap, neem oil, or natural predators like ladybugs to control infestations.</p>
             <p><strong>Tips:</strong> Roses prefer well-drained soil and should be watered deeply but less frequently to encourage deep root growth. Water the base, avoiding the leaves to prevent fungal diseases. Deadhead spent blooms to encourage new flowers.</p>
         </div>
         <div class="flower-card">
             <h2>Marigold (Tagetes spp.)</h2>
-            <p><strong>Temprature:</strong>Marigolds thrive in temperatures between 70°F to 75°F (21°C to 24°C) but can tolerate higher temperatures. They may need shade during the hottest part of the day in extreme heat.</p>
+            <p><strong>Temperature:</strong> Marigolds thrive in temperatures between 70°F to 75°F...</p>
             <p><strong>Fertilization:</strong>Marigolds are not heavy feeders but benefit from a balanced, slow-release fertilizer applied at planting time. Avoid over-fertilizing, as it can lead to excessive foliage and fewer flowers.</p>
             <p><strong>Pests:</strong>Marigolds are relatively pest-resistant but can attract aphids, spider mites, and whiteflies. Use insecticidal soap or neem oil to manage pests.</p>
             <p><strong>Tips:</strong> Marigolds prefer full sun and well-drained soil. Water at the base to keep foliage dry and prevent fungal issues. Regular deadheading promotes more blooms. They are relatively drought-tolerant but perform best with regular watering.</p>
         </div>
-
         <div class="flower-card">
             <h2>Jasmine (Jasminum spp.)</h2>
-            <p><strong>Temprature:</strong>Jasmine prefers temperatures between 60°F to 75°F (15°C to 24°C). It can tolerate slight drops in temperature but should be protected from frost.</p>
+            <p><strong>Temperature:</strong> Jasmine prefers temperatures between 60°F to 75°F...</p>
             <p><strong>Fertilization:</strong>Use a balanced liquid fertilizer every 2-4 weeks during the growing season. You can also apply a slow-release fertilizer in early spring.</p>
             <p><strong>Pests:</strong>Common pests include aphids, whiteflies, and spider mites. Regularly inspect the plant and treat infestations with insecticidal soap or neem oil.</p>
             <p><strong>Tips:</strong> Jasmine thrives in well-drained, moderately fertile soil and requires full to partial sunlight. Water regularly but do not overwater, as Jasmine prefers slightly moist soil. Prune regularly to maintain shape and encourage growth.</p>
         </div>
-
         <div class="flower-card">
             <h2>Hibiscus (Hibiscus rosa-sinensis)</h2>
             <p><strong>Temprature:</strong>Hibiscus prefers warm temperatures between 60°F to 85°F (15°C to 29°C). Protect from temperatures below 50°F (10°C) as they are not frost-tolerant.</p>
@@ -93,7 +108,6 @@
             <p><strong>Pests:</strong>Watch for aphids, whiteflies, and spider mites. Use insecticidal soap, neem oil, or horticultural oils to treat pest problems.</p>
             <p><strong>Tips:</strong> Hibiscus plants require well-drained soil and full sun. They need regular watering, especially during blooming periods. Fertilize monthly with a balanced fertilizer for best results.</p>
         </div>
-
         <div class="flower-card">
             <h2>Bougainvillea (Bougainvillea spp.)</h2>
             <p><strong>Temprature:</strong>Bougainvillea thrives in warm temperatures, ideally between 65°F to 95°F (18°C to 35°C). It can tolerate higher temperatures but should be protected from frost.</p>
@@ -142,5 +156,22 @@
             <p><strong>Tips:</strong> Indian Jasmine, or Mogra, needs well-drained soil and full to partial sun. Water regularly, especially during the growing season. Prune after flowering to maintain shape and encourage bushier growth.</p>
         </div>
     </div>
+
+    <script>
+        // JavaScript function to filter flower cards based on search input
+        function filterFlowers() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let flowerCards = document.getElementsByClassName('flower-card');
+
+            for (let i = 0; i < flowerCards.length; i++) {
+                let flowerName = flowerCards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+                if (flowerName.includes(input)) {
+                    flowerCards[i].style.display = '';
+                } else {
+                    flowerCards[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
