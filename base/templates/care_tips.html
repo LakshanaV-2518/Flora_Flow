@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Tips</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        /* Header Styles */
+        header {
+            background-color: #6A9C89;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: 'Georgia', serif;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Flower Container Styles */
+        .flower-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Flower Card Styles */
+        .flower-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .flower-card h2 {
+            font-family: 'Georgia', serif;
+            color: #6A9C89;
+        }
+
+        .flower-card p {
+            line-height: 1.6;
+        }
+
+        /* Hover Effects */
+        .flower-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nurture Strategies</h1>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for a flower..." onkeyup="filterFlowers()">
+    </div>
+
+    <!-- Flower Cards -->
+    <div class="flower-container" id="flowerContainer">
+        <div class="flower-card">
+            <h2>Rose (Rosa spp.)</h2>
+            <p><strong>Temperature:</strong> Ideal growing temperatures are between 60°F to 75°F (15°C to 24°C)...</p>
+            <p><strong>Fertilization:</strong>Use a balanced fertilizer (10-10-10) every 4-6 weeks during the growing season. You can also use slow-release or organic fertilizers to maintain steady nutrient supply.</p>
+            <p><strong>Pests:</strong>Common pests include aphids, spider mites, and Japanese beetles. Use insecticidal soap, neem oil, or natural predators like ladybugs to control infestations.</p>
+            <p><strong>Tips:</strong> Roses prefer well-drained soil and should be watered deeply but less frequently to encourage deep root growth. Water the base, avoiding the leaves to prevent fungal diseases. Deadhead spent blooms to encourage new flowers.</p>
+        </div>
+        <div class="flower-card">
+            <h2>Marigold (Tagetes spp.)</h2>
+            <p><strong>Temperature:</strong> Marigolds thrive in temperatures between 70°F to 75°F...</p>
+            <p><strong>Fertilization:</strong>Marigolds are not heavy feeders but benefit from a balanced, slow-release fertilizer applied at planting time. Avoid over-fertilizing, as it can lead to excessive foliage and fewer flowers.</p>
+            <p><strong>Pests:</strong>Marigolds are relatively pest-resistant but can attract aphids, spider mites, and whiteflies. Use insecticidal soap or neem oil to manage pests.</p>
+            <p><strong>Tips:</strong> Marigolds prefer full sun and well-drained soil. Water at the base to keep foliage dry and prevent fungal issues. Regular deadheading promotes more blooms. They are relatively drought-tolerant but perform best with regular watering.</p>
+        </div>
+        <div class="flower-card">
+            <h2>Jasmine (Jasminum spp.)</h2>
+            <p><strong>Temperature:</strong> Jasmine prefers temperatures between 60°F to 75°F...</p>
+            <p><strong>Fertilization:</strong>Use a balanced liquid fertilizer every 2-4 weeks during the growing season. You can also apply a slow-release fertilizer in early spring.</p>
+            <p><strong>Pests:</strong>Common pests include aphids, whiteflies, and spider mites. Regularly inspect the plant and treat infestations with insecticidal soap or neem oil.</p>
+            <p><strong>Tips:</strong> Jasmine thrives in well-drained, moderately fertile soil and requires full to partial sunlight. Water regularly but do not overwater, as Jasmine prefers slightly moist soil. Prune regularly to maintain shape and encourage growth.</p>
+        </div>
+        <div class="flower-card">
+            <h2>Hibiscus (Hibiscus rosa-sinensis)</h2>
+            <p><strong>Temprature:</strong>Hibiscus prefers warm temperatures between 60°F to 85°F (15°C to 29°C). Protect from temperatures below 50°F (10°C) as they are not frost-tolerant.</p>
+            <p><strong>Fertilization:</strong>Feed with a high-potassium fertilizer every 4-6 weeks during the growing season to promote blooming. A 10-10-10 or 12-4-18 fertilizer is ideal.</p>
+            <p><strong>Pests:</strong>Watch for aphids, whiteflies, and spider mites. Use insecticidal soap, neem oil, or horticultural oils to treat pest problems.</p>
+            <p><strong>Tips:</strong> Hibiscus plants require well-drained soil and full sun. They need regular watering, especially during blooming periods. Fertilize monthly with a balanced fertilizer for best results.</p>
+        </div>
+        <div class="flower-card">
+            <h2>Bougainvillea (Bougainvillea spp.)</h2>
+            <p><strong>Temprature:</strong>Bougainvillea thrives in warm temperatures, ideally between 65°F to 95°F (18°C to 35°C). It can tolerate higher temperatures but should be protected from frost.</p>
+            <p><strong>Fertilization:</strong>Use a balanced fertilizer high in phosphorus every 4-6 weeks during the growing season. Avoid over-fertilization, as it can lead to lush foliage with fewer blooms.</p>
+            <p><strong>Pests:</strong>Bougainvillea is relatively pest-resistant but can occasionally attract aphids and caterpillars. Treat with insecticidal soap or neem oil if necessary.</p>
+            <p><strong>Tips:</strong> Bougainvillea thrives in full sun and well-drained soil. They are drought-tolerant and should be watered sparingly. Too much water can lead to fewer blooms. Prune regularly to control growth and encourage flowering.</p>
+        </div>
+
+        <div class="flower-card">
+            <h2>Chrysanthemum (Chrysanthemum spp.)</h2>
+            <p><strong>Temprature:</strong>Chrysanthemums prefer cool to moderate temperatures, ideally between 60°F to 70°F (15°C to 21°C). They can tolerate slight temperature fluctuations but should be protected from frost.</p>
+            <p><strong>Fertilization:</strong> Feed with a balanced fertilizer every 4-6 weeks during the growing season. A 20-20-20 fertilizer is ideal for promoting blooms.</p>
+            <p><strong>Pests:</strong>Common pests include aphids, spider mites, and leaf miners. Use insecticidal soap, neem oil, or horticultural oils to manage pest problems.</p>
+            <p><strong>Tips:</strong> Chrysanthemums prefer full sun and well-drained soil. Water regularly, keeping the soil consistently moist but not soggy. Pinch back stems to encourage bushier growth and more blooms.</p>
+        </div>
+
+        <div class="flower-card">
+            <h2>Tulsi (Ocimum tenuiflorum)</h2>
+            <p><strong>Temprature:</strong>Tulsi thrives in warm temperatures between 70°F to 95°F (21°C to 35°C). It is sensitive to cold and should be protected from temperatures below 50°F (10°C).</p>
+            <p><strong>Fertilization:</strong>Feed with a balanced organic fertilizer every 4-6 weeks during the growing season. Compost or well-rotted manure can also be used as a natural fertilizer.</p>
+            <p><strong>Pests:</strong>Tulsi is relatively pest-resistant but may attract aphids and whiteflies. Use neem oil or insecticidal soap to control pests.</p>
+            <p><strong>Tips:</strong> Tulsi, or Holy Basil, thrives in full sun and well-drained soil. It needs regular watering but can tolerate brief dry periods. Pinch off flower buds to encourage more leaf growth.</p>
+        </div>
+
+        <div class="flower-card">
+            <h2>Ixora (Ixora coccinea)</h2>
+            <p><strong>Temprature:</strong>Ixora prefers warm temperatures between 65°F to 85°F (18°C to 29°C). It can tolerate higher temperatures but should be protected from cold drafts and frost.</p>
+            <p><strong>Fertilization:</strong>Use a balanced fertilizer every 6-8 weeks during the growing season. A fertilizer rich in phosphorus and potassium will help promote blooming.</p>
+            <p><strong>Pests:</strong>Watch for aphids, scale insects, and spider mites. Treat with insecticidal soap, neem oil, or horticultural oils as needed.</p>
+            <p><strong>Tips:</strong> Ixora prefers full sun to partial shade and well-drained, acidic soil. Water regularly, especially during dry spells. Prune after flowering to maintain shape and encourage new growth.</p>
+        </div>
+
+        <div class="flower-card">
+            <h2>Jade Vine (Strongylodon macrobotrys)</h2>
+            <p><strong>Temprature:</strong>Keep the plant in a warm environment (above 60°F) as it is sensitive to cold.</p>
+            <p><strong>Fertilization:</strong>Feed Jade Vine with a balanced, slow-release fertilizer every 3-4 months during the growing season.</p>
+            <p><strong>Pests:</strong>Watch for mealybugs and scale insects. Treat with neem oil or insecticidal soap.</p>
+            <p><strong>Tips:</strong> Jade Vine requires well-drained soil and full to partial sunlight. Keep soil moist but not waterlogged. Prune regularly to maintain shape and encourage blooming.</p>
+        </div>
+
+        <div class="flower-card">
+            <h2>Indian Jasmine (Jasminum sambac)</h2>
+            <p><strong>Humidity:</strong>Indian Jasmine loves high humidity. Increase humidity around the plant by misting or placing it near a humidifier.</p>
+            <p><strong>Fertilization:</strong>Feed with a balanced liquid fertilizer every 2-3 weeks during the growing season.</p>
+            <p><strong>Pests:</strong> Keep an eye out for spider mites and aphids. Treat with neem oil or insecticidal soap as needed.</p>
+            <p><strong>Tips:</strong> Indian Jasmine, or Mogra, needs well-drained soil and full to partial sun. Water regularly, especially during the growing season. Prune after flowering to maintain shape and encourage bushier growth.</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript function to filter flower cards based on search input
+        function filterFlowers() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let flowerCards = document.getElementsByClassName('flower-card');
+
+            for (let i = 0; i < flowerCards.length; i++) {
+                let flowerName = flowerCards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+                if (flowerName.includes(input)) {
+                    flowerCards[i].style.display = '';
+                } else {
+                    flowerCards[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

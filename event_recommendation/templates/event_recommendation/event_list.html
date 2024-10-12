@@ -1,0 +1,22 @@
+<!-- event_recommendation/event_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Events</title>
+</head>
+<body>
+    <h1>Upcoming Plant Events</h1>
+    <div class="events-container">
+        {% for event in events %}
+        <div class="event-card">
+            <h2>{{ event.name }}</h2>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+            <a href="{{ event.url }}" target="_blank" class="btn">More Info</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
