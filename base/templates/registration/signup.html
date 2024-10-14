@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+  .shadow-wrap, .form-wrap {
+      font-family: 'Georgia', serif;
+  }
+</style>
 <div class="shadow-wrap">
  <div class="form-wrap">
   <h3>Signup</h3>
@@ -9,6 +14,7 @@
           <label for="id_username">Username:</label>
           {{ form.username }}
       </div>
+      
       <div class="form-group">
           <label for="id_password1">Password:</label>
           {{ form.password1 }}

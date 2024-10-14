@@ -8,13 +8,13 @@
     {% load static %}
     <style>
         body {
-            background:url("{% static 'blog/ima.jpg' %}");
+            background: url("{% static 'blog/ima.jpg' %}");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             min-height: 100vh;
             color: #333;
-            font-family: 'Helvetica Neue';
+            font-family: 'Georgia', serif;
             font-weight: bold;
             display: flex;
             justify-content: center;
@@ -74,7 +74,8 @@
             align-items: center;
         }
 
-        .pagination a, .pagination span {
+        .pagination a,
+        .pagination span {
             margin: 0 5px;
             padding: 8px 12px;
             border: 1px solid #ddd;
@@ -103,22 +104,33 @@
 </head>
 
 <body>
-    <div class="container mt-4"> <!-- Existing container div -->
+    <div class="container mt-4">
         <h2>Garden Narratives</h2>
-        
+
+        <!-- Display messages -->
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <a href="{% url 'blog:post_create' %}" class="btn btn-success">Create New Post</a>
-    
+
         <!-- List of Topics -->
         <ul class="list-group mt-3">
             {% for post in posts %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="{% url 'blog:post_view' post.id %}">{{ post.title }}</a>
-    
+
                     {% if user.is_authenticated %}
                         {% if user == post.author or user.is_staff %}
                             <div>
                                 <a href="{% url 'blog:post_update' post.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
-                                <a href="{% url 'blog:post_delete' post.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-post-id="{{ post.id }}" data-post-title="{{ post.title }}">
+                                    Delete
+                                </button>
                             </div>
                         {% endif %}
                     {% endif %}
@@ -147,7 +159,44 @@
             </div>
         {% endif %}
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the post titled "<span id="post-title"></span>"?
+                </div>
+                <div class="modal-footer">
+                    <form id="delete-form" method="POST" action="">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const deleteButtons = document.querySelectorAll('[data-bs-target="#confirmDeleteModal"]');
+        const postTitle = document.getElementById('post-title');
+        const deleteForm = document.getElementById('delete-form');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                const postTitleText = this.getAttribute('data-post-title');
+                postTitle.textContent = postTitleText;
+                deleteForm.action = "{% url 'blog:post_delete' 0 %}".replace(/0$/, postId);
+            });
+        });
+    </script>
 </body>
 
 </html>

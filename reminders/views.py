@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import JsonResponse
 from datetime import datetime, timedelta
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -12,27 +12,17 @@ from .forms import ReminderForm
 # Function to send email
 def send_email(sender_email, sender_password, recipient_email, subject, message):
     try:
-        # Create the MIMEMultipart message
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = recipient_email
         msg['Subject'] = subject
-
-        # Attach the message body
         msg.attach(MIMEText(message, 'plain'))
-
-        # Create the SMTP session for Gmail and login
         server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()  # Secure the connection
+        server.starttls()
         server.login(sender_email, sender_password)
-
-        # Send the email
         server.send_message(msg)
-        print(f"Email sent successfully to {recipient_email}")
-
-        # Close the server connection
         server.quit()
-
+        print(f"Email sent successfully to {recipient_email}")
     except Exception as e:
         print(f"Error: {e}")
 
@@ -45,20 +35,14 @@ def run_schedule():
 # Django view to handle reminder setting
 def set_reminder(request):
     if request.method == 'POST':
-        form = ReminderForm(request.POST)  # Use your ReminderForm
+        form = ReminderForm(request.POST)
         if form.is_valid():
-            # Save the reminder to the database
-            reminder = form.save()  # Save the reminder
-
-            # Extract data for scheduling
+            reminder = form.save()
             reminder_time = request.POST.get('reminder_time')
             email = request.POST.get('email')
             plant_collection = request.POST.getlist('plants')
-
-            # Convert reminder_time to the correct format
             reminder_time = datetime.strptime(reminder_time, '%Y-%m-%dT%H:%M')
 
-            # Function to schedule email every 2 hours starting from reminder_time
             def schedule_email():
                 send_email(
                     sender_email="samplemail0403@gmail.com",
@@ -67,17 +51,13 @@ def set_reminder(request):
                     subject="Plant Watering Reminder",
                     message=f"Reminder to water your plants:\n\n{plant_collection}"
                 )
-                # Reschedule to run after 2 hours
                 schedule_time = (datetime.now() + timedelta(hours=24)).strftime("%H:%M")
                 schedule.every().day.at(schedule_time).do(schedule_email)
 
-            # Schedule the first email at the reminder_time
             schedule.every().day.at(reminder_time.strftime("%H:%M")).do(schedule_email)
-
-            # Start a background thread for scheduling
             threading.Thread(target=run_schedule, daemon=True).start()
 
-            return HttpResponse("Reminder set successfully and emails scheduled every 2 hours!")
+            return JsonResponse({"success": True, "message": "Reminder set successfully and emails will be sent at the scheduled time"})
     else:
         form = ReminderForm()
 

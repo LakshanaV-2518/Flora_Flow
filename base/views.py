@@ -100,14 +100,11 @@ def post_delete(request, pk):
         return redirect("blog:post_list")
 
     if request.method == "POST":
-        if "confirm_delete" in request.POST:  # Check if the user clicked the delete button
-            post.delete()
-            return redirect("blog:post_list")
-        else:  # User canceled the deletion
-            return redirect("blog:post_list")
+        post.delete()
+        messages.success(request, f'The post "{post.title}" has been deleted successfully.')
+        return redirect("blog:post_list")
 
-    return render(request, "blog/post_confirm_delete.html", {"post": post})
-
+    return redirect("blog:post_list")
 
 # View to handle sign out
 def signout(request):

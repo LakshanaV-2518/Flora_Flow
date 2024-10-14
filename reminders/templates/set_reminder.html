@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +11,33 @@
     <style>
         body {
             background-color: #f8f9fa;
+            font-family: 'Georgia', serif;
+            background: url("{% static 'blog/reminder.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            min-height: 100vh;
         }
         .container {
-            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            background:center
+            border-radius: 0.5rem;
+            max-width: 800px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+            border-radius: 5%;
+            
         }
         .form-control {
             border-radius: 0.25rem;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #6A9C89 0%, #16423C 100%);
+            background: #5F8C7B;
             border: none;
             border-radius: 0.5rem;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            margin:0;
         }
         .btn-primary:hover {
             background: linear-gradient(90deg, #6A9C89 0%, #16423C 100%);
@@ -30,12 +46,19 @@
         .text-danger {
             font-size: 0.875rem;
         }
+        #popup-message {
+            display: none;
+            color: green;
+            font:bold;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">Set a Reminder</h1>
-        <form action="{% url 'set_reminder' %}" method="POST" class="mt-4">
+        <h1 class="mt-5">Reminder To Quench Your Thirsty Plants</h1>
+        <form id="reminder-form" class="mt-4">
             {% csrf_token %}
             <div class="form-group">
                 <label for="reminder_time">Select Date and Time:</label>
@@ -57,26 +80,42 @@
                     <option value="Tulsi">Tulsi</option>
                     <option value="Ixora">Ixora</option>
                     <option value="Jade Vine">Jade Vine</option>
-                    <option value=" Indian Jasmine"> Indian Jasmine</option>   
+                    <option value="Indian Jasmine">Indian Jasmine</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Set Reminder</button>
+            <button type="submit" class="btn btn-primary" style="display: block; margin: 0 auto;">Set Reminder</button>
         </form>
+
+        <div id="popup-message">Reminder set successfully and emails will be sent at the scheduled time.</div>
     </div>
+
     <!-- Include Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Include custom JavaScript -->
+
+    <!-- Include custom JavaScript for AJAX form submission -->
     <script>
-        document.getElementById('email').addEventListener('input', function() {
-            const email = this.value;
-            const feedback = document.getElementById('email-feedback');
-            if (!email.includes('@')) {
-                feedback.textContent = 'Please enter a valid email address.';
-            } else {
-                feedback.textContent = '';
-            }
+        document.getElementById('reminder-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const formData = new FormData(this); // Get form data
+
+            // Send form data to the server using fetch
+            fetch("{% url 'set_reminder' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show popup message
+                    document.getElementById('popup-message').style.display = 'block';
+                }
+            })
+            .catch(error => console.log('Error:', error));
         });
     </script>
 </body>
